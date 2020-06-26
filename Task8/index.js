@@ -1,5 +1,5 @@
-﻿var clarifaiApiKey = 'd5cd1bc0528344a8a111e7738899a73f';
-var workflowId = 'testing';
+﻿var clarifaiApiKey = 'yourKey';
+var workflowId = 'yourID';
 
 var app = new Clarifai.App({
   apiKey: clarifaiApiKey
