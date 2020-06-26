@@ -80,8 +80,8 @@ function ShortLinkBitly(pLongUrl) { /*pLongUrl is the long URL*/
         return "Error: Link must start with a protocol (e.g.: http or https).";
     }
 
-    var apiKey = 'd9bb5dd43b6db46a07f4ab1a293421fbea784482';
-    var username = 'o_4gr71ktis4';
+    var apiKey = '';
+    var username = '';
     //var test = {
     //      long_url: pLongUrl
     //    };
