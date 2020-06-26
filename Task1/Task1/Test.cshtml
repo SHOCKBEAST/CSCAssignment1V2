@@ -1,0 +1,63 @@
+﻿@{
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Clarifai Workflow API Demo</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <header class="header">
+            <h1 class="header-text">Analyze My Image!</h1>
+        </header>
+        <div class="container">
+            <div class="upload-photo">
+                <input class="file-upload" type="file" onchange="uploadImage()">
+                <div class="photo-container">
+                    <img class="photo" src="" alt="Image preview">
+                </div>
+            </div>
+            <div class="analysis" id="analysis">
+            </div>
+        </div>
+    </body>
+    </html>
+}
+<script>
+    function uploadImage() {
+        var preview = document.querySelector('img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+            var imageData = reader.result;
+            imageData = imageData.replace(/^data:image\/(.*);base64,/, '');
+            predict(imageData);
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+            preview.style.display = "inherit";
+        }
+    }
+    function predict(photourl) {
+        var data = 'urls=' + photourl;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+                console.log(this.responseText);
+            }
+        });
+
+        xhr.open("POST", "https://app.nanonets.com/api/v2/OCR/Model/336583b7-575d-45d5-ba5c-26d08874f789/LabelUrls/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("authorization", "Basic " + btoa("XtgHDan8kaAK4wLuflk4YRib9S9guAq9:"));
+
+        xhr.send(data);
+    }
+</script>
